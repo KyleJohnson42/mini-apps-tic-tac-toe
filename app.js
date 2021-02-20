@@ -1,5 +1,10 @@
 let board = [[], [], []];
 let currentTurn = 'X';
+let gameWon = false;
+
+let checkWin = board => {
+
+};
 
 let renderBoard = board => {
   for (const row in board) {
@@ -10,23 +15,29 @@ let renderBoard = board => {
   }
 }
 
+let renderWin = board => {
+
+}
+
 let handleClick = event => {
-  if (event.target.innerHTML === ''){
+  if (event.target.innerHTML === '' && !gameWon){
     if (currentTurn === 'X') {
       let id = event.target.id;
       board[id[0]][id[1]] = 'X';
       currentTurn = 'O';
       renderBoard(board);
+      checkWin(board);
     } else if (currentTurn === 'O') {
       let id = event.target.id;
       board[id[0]][id[1]] = 'O';
       currentTurn = 'X';
       renderBoard(board);
+      checkWin(board, id);
     }
   }
 };
 
-let reset = event => {
+let handleReset = event => {
   for (const row in board) {
     for (const col in board[row]) {
       board[row][col] = '';
@@ -36,4 +47,4 @@ let reset = event => {
 }
 
 document.getElementById('board').addEventListener('click', handleClick);
-document.getElementById('reset').addEventListener('click', reset);
+document.getElementById('reset').addEventListener('click', handleReset);
