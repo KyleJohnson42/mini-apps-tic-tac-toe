@@ -11,3 +11,4 @@ let handleClick = event => {
   }
 };
 
+document.getElementById('board').addEventListener('click', handleClick);
