@@ -32,3 +32,8 @@
   line-height: 50px;
   text-align: center;
 }
+
+.win-space {
+  color: white;
+  background-color: green;
+}

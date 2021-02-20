@@ -10,7 +10,7 @@ let checkWin = (board, id, player) => {
       win = [];
       break;
     }
-    win.push(id);
+    win.push(id[0] + i.toString());
   }
   if (win.length === 3) {
     win.push(player);
@@ -22,7 +22,7 @@ let checkWin = (board, id, player) => {
       win = [];
       break;
     }
-    win.push(id);
+    win.push(i.toString() + [id[1]]);
   }
   if (win.length === 3) {
     win.push(player);
@@ -34,7 +34,7 @@ let checkWin = (board, id, player) => {
       win = [];
       break;
     }
-    win.push(id);
+    win.push(i.toString() + j.toString());
   }
   if (win.length === 3) {
     win.push(player);
@@ -46,13 +46,24 @@ let checkWin = (board, id, player) => {
       win = []
       break;
     }
-    win.push(id);
+    win.push(i.toString() + j.toString());
   }
   if (win.length === 3) {
     win.push(player);
     return win;
   }
-  if (board[0].length + board[1].length + board[2].length === 9){
+  // Check for a tie
+  let filledSpaces = 0;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j]) {
+        filledSpaces++;
+      } else {
+        break;
+      }
+    }
+  }
+  if (filledSpaces === 9) {
     return 'tie';
   }
 };
@@ -67,11 +78,14 @@ let renderBoard = board => {
 }
 
 let renderWin = win => {
-  console.log(win[win.length - 1] + ' WINS!')
+  for (let i = 0; i < 3; i++) {
+    document.getElementById(win[i]).classList.add('win-space');
+  }
+  document.getElementById('winner').innerHTML = win[win.length - 1] + ' WINS!';
 }
 
 let renderTie = board => {
-  console.log('TIE!')
+  document.getElementById('winner').innerHTML = 'TIE!';
 }
 
 let handleClick = event => {
@@ -112,8 +126,10 @@ let handleReset = event => {
   for (const row in board) {
     for (const col in board[row]) {
       board[row][col] = '';
+      document.getElementById(row.toString() + col.toString()).className = 'space';
     }
   }
+  document.getElementById('winner').innerHTML = '';
   renderBoard(board);
   currentTurn = 'X';
   gameWon = false;
