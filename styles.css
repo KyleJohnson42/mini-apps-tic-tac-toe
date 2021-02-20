@@ -1,0 +1,32 @@
+.board {
+  display: grid;
+  width: 150px;
+  grid: 1fr 1fr 1fr;
+  grid-template-areas:
+    "one one one"
+    "two two two"
+    "three three three";
+}
+
+.one {
+  grid-area: one;
+}
+
+.two {
+  grid-area: two;
+}
+
+.three {
+  grid-area: three;
+}
+
+.row {
+  width: 150px;
+  display: flex;
+}
+
+.space {
+  border: 1px solid gray;
+  width: 50px;
+  height: 50px;
+}
